@@ -1,0 +1,9 @@
+{
+  "version":"1.0",
+  "activeExecutions":[],
+  "completedWorkOrders":[],
+  "failedExecutions":[],
+  "humanTakeovers":[],
+  "lastReconciledMainSha":"37dbc01a9b29f5fc12d522a29f7d31846c165b63",
+  "notes":"Navigation only. Live Git, Work Orders, CI, and evidence override stale projections."
+}
