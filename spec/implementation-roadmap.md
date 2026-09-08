@@ -1,103 +1,148 @@
-# Workflows Implementation Roadmap
+# Workflows Implementation Roadmap — V1.1
 
-**Status: FROZEN IMPLEMENTATION SEQUENCE — V1.1**
+**Status: GOVERNED IMPLEMENTATION SEQUENCE**
+**Architecture target:** `Version 1.1`
+**Execution model:** dependency-driven Work Orders, maximum three autonomous implementation specialists concurrently.
 
-The roadmap is dependency-driven. The Tech Lead may pull independent Work Orders forward when dependencies and change surfaces permit it, but may not bypass prerequisites. Architecture target is `Version 1.1` from `spec/architecture/ARCHITECTURE-V1.1.md`.
+This roadmap freezes outcomes, architectural boundaries, dependency prerequisites, and acceptance gates. Implementation agents have latitude over internal design and implementation techniques where `spec/development-state/IMPLEMENTATION-FLEX-RULES.md` permits it.
 
-## Stage 0 — Governance
+## Stage 0 — Governance (COMPLETE)
 
-WO-001 repository governance bootstrap
-WO-002 architecture/security constitution
-WO-003 agent operating/review protocol
-WO-004 Work Order contract
-WO-005 conformance/CI foundation
+- WO-001 repository governance bootstrap
+- WO-002 architecture and security constitution
+- WO-003 agent operating and review protocol
+- WO-004 Work Order contract
+- WO-005 architecture conformance and CI foundation
 
-Exit: a fresh Tech Lead can determine the correct next Work Orders from repository state.
+**Exit:** a fresh Tech Lead can reconstruct repository state, compute the eligible frontier, and dispatch self-contained Work Orders without hidden chat context.
 
-## Stage 1 — Platform and integration contracts
+## Stage 1 — Platform and contracts
 
-WO-006 application skeleton
-WO-007 core domain contracts — Workflow graph, Resource, Capability, Role, authorization-facing value objects
-WO-008 execution contracts — execution modality, session hierarchy, browser/tool/API/human/terminal abstractions
-WO-009 API/realtime contracts — workflow events, normalized triggers, execution/control interfaces
-WO-010 persistence/artifact contracts
-WO-010A Tool/Connector contracts — provider-neutral connector, tool invocation, discovery, account binding, trigger normalization
+### Critical sequence
 
-`WO-010A` must be complete before connector implementations are dispatched. Composio is an adapter, never semantic authority.
+`WO-006 → WO-007/008/009/010 → WO-010A`
 
-Parallelism: after WO-006, WO-007/008/009/010 may run concurrently if surfaces do not conflict; WO-010A follows its declared dependencies.
+### Work Orders
+
+- **WO-006** — application/repository skeleton
+- **WO-007** — core domain contracts: workflow graph, resources, capabilities, roles, authorization-facing value objects
+- **WO-008** — execution environment and session contracts: modalities and browser/tool/API/human/terminal boundaries
+- **WO-009** — API, realtime, trigger, event, execution-control contracts
+- **WO-010** — persistence and artifact contracts
+- **WO-010A** — provider-neutral ToolConnector contracts: discovery, invocation, account binding, trigger/result normalization
+
+**Parallelism:** WO-007, WO-008, WO-009, and WO-010 may run concurrently after WO-006 when their actual change surfaces remain non-conflicting. WO-010A follows all four.
+
+**Gate G1:** all authoritative domain/control contracts are explicit, adapter boundaries are narrow, and each contract has deterministic tests or executable conformance fixtures.
 
 ## Stage 2 — Workflow runtime
 
-WO-011 workflow definition and explicit execution graph model
-WO-012 deterministic workflow state machine including branch/fork/join/loop/wait/subworkflow/human-gate/compensation semantics
-WO-013 workflow instance runtime
-WO-014 pause/resume/recovery
+- **WO-011** — workflow definition and execution graph
+- **WO-012** — deterministic workflow state machine
+- **WO-013** — durable WorkflowInstance runtime
+- **WO-014** — pause/resume/recovery
 
-## Stage 3 — Agents, resources, and product execution planning
+**Gate G2:** workflow transitions are authoritative and deterministic from persisted state; LLMs and adapters cannot directly mutate workflow semantics.
 
-WO-015 roles and role assignments
-WO-016 agent and harness registry
-WO-017 agent execution lifecycle and session boundaries
-WO-017A product execution planner and resource/capability selector
-WO-018 Tech Lead scheduler and orchestrator — engineering-team orchestration; distinct from product execution scheduling
-WO-019 human takeover and handoff
+## Stage 3 — Roles, agents, product planning, engineering orchestration
 
-`WO-017A` defines product workflow execution selection across agents, tools, APIs, browser, human, and future modalities. The three-specialist development concurrency rule remains an engineering governance constraint only.
+- **WO-015** — roles and role assignments
+- **WO-016** — AgentHarness/provider registry
+- **WO-017** — agent execution lifecycle/session boundaries
+- **WO-017A** — product execution planner and capability/resource selector
+- **WO-018** — engineering Tech Lead scheduler/orchestrator
+- **WO-019** — human takeover/handoff
+
+**Important:** WO-017A governs product WorkflowInstance execution. WO-018 governs engineering-agent dispatch. The three-agent engineering limit is not a product concurrency limit.
+
+**Gate G3:** product scheduling and engineering scheduling are separate authority domains with explicit interfaces.
 
 ## Stage 4 — Browser substrate
 
-WO-020 browser observation/action runtime
-WO-021 Chrome extension bridge
-WO-022 managed Chromium runtime
+- **WO-020** — browser observation/action runtime
+- **WO-021** — local Chrome extension bridge
+- **WO-022** — managed Chromium runtime
 
-The first user-facing browser path is extension-connected local Chrome. Managed Chromium is the isolated/unattended path. Remote browser providers remain adapters, not semantic authorities.
+**Gate G4:** browser actions are scoped by BrowserSession/Profile/Tab/Origin and produce auditable observation/action/result evidence. Extension-connected local Chrome is the first user-facing browser route; managed Chromium is the isolated/unattended route.
 
-## Stage 5 — Teaching
+## Stage 5 — Teaching and workflow compilation
 
-WO-023 Demonstrate recorder
-WO-024 Instruct parser
-WO-025 Hybrid teaching compiler
-WO-026 semantic Workflow Candidate compiler/validator and Workflow IR compilation
-WO-027 workflow editor/simulator
+- **WO-023** — Demonstrate recorder
+- **WO-024** — Instruct parser
+- **WO-025** — Hybrid teaching compiler
+- **WO-026** — semantic Workflow Candidate compiler/validator + Workflow IR
+- **WO-027** — workflow editor/simulator
 
-The teaching compiler must preserve semantic intent while allowing governed execution-binding optimization, including replacement of a browser interaction with a semantically equivalent connector capability where safe.
+WO-023 and WO-024 may run in parallel. Compilation must preserve semantic intent while allowing governed execution-binding optimization, including connector substitution when semantically equivalent and policy-authorized.
 
-## Stage 6 — Knowledge
+**Gate G5:** raw trajectories remain evidence; WorkflowVersion is immutable; candidate publication requires validation and approval.
 
-WO-028 memory architecture/storage
-WO-029 procedural skills and workflow memory
-WO-030 provenance/trust enforcement
+## Stage 6 — Knowledge and trust
 
-Memory categories: episodic, semantic, procedural, organizational.
+- **WO-028** — memory architecture/storage
+- **WO-029** — procedural skills and workflow memory
+- **WO-030** — provenance/trust enforcement
 
-## Stage 7 — External connectors, AI harnesses, and assurance
+**Gate G6:** provenance, trust, and memory types are explicit; repeated untrusted information or model confidence cannot promote it to trusted authority.
 
-WO-031 ChatGPT/Claude/Z.ai web harness adapters
-WO-031A Composio ToolConnector adapter
-WO-032 evidence lineage/verification and execution telemetry
-WO-033 authorization/credential isolation
-WO-034 security evaluation suite
+## Stage 7 — External execution and assurance
 
-`WO-031A` must implement least-privilege Composio sessions/toolkit scope, runtime discovery, explicit connected-account binding/selection, credential isolation, normalized results, and reproducible provider/tool binding identity where available.
+- **WO-031** — ChatGPT/Claude/Z.ai web AgentHarness adapters
+- **WO-031A** — Composio ToolConnector adapter
+- **WO-032** — evidence lineage, verification, and execution telemetry
+- **WO-033** — authorization and credential isolation
+- **WO-034** — security evaluation suite
 
-## Stage 8 — Product execution UX
+**Gate G7:** at least two AI harnesses and one structured connector execute through provider-neutral contracts; credentials remain outside workflow semantics/model-visible context; prompt injection and confused-deputy defenses are tested.
 
-WO-035 realtime execution UI
+## Stage 8 — Execution UX
+
+- **WO-035** — realtime execution UI
+
+**Gate G8:** users can inspect execution state, evidence, pauses, and human takeover/resume through control-plane-authorized paths only.
 
 ## Stage 9 — Dogfood and evaluation
 
-WO-036 software-development workflow taught through Workflows itself
-WO-037 workflow replay/generalization benchmark
-WO-038 browser recovery benchmark
+- **WO-036** — software-development workflow dogfood
+- **WO-037** — replay/generalization benchmark
+- **WO-038** — browser recovery benchmark
 
-The software-development workflow is the first validation workflow, not a special domain engine.
+**Gate G9:** software development is implemented as a normal workflow using generic capabilities and execution modalities. No hidden software-specific workflow engine exists.
 
 ## Stage 10 — Deployment and release
 
-WO-039 production deployment automation
-WO-040 production dogfooding and acceptance
+- **WO-039** — production deployment automation
+- **WO-040** — production dogfooding and acceptance
+
+**Gate G10:** release evidence demonstrates the MVP definition below at an exact reviewed head.
+
+## Cross-repository Codex integration track
+
+The Workflows repository remains the semantic/control-plane authority. Codex is an execution/runtime substrate. Integration is governed separately so that Codex never becomes a second workflow engine.
+
+- **CX-001** — cross-repository contract audit (blocked until concrete Workflows contracts exist where needed)
+- **CX-002** — Codex read-only Workflow Host client
+- **CX-003** — Codex workflow launch/attach/control bridge with idempotency
+- **CX-004** — capability/resource execution bindings
+- **CX-005** — cross-client realtime events/evidence + workflow UX
+- **CX-006** — conformance, failure/recovery, and software-development dogfood across both repos
+
+Codex must not invent canonical Workflows endpoints, workflow state models, or WorkflowVersion semantics. These become implementable only from merged Workflows contracts.
+
+## Implementation-agent freedom
+
+Agents may choose internal structures, libraries, data structures, tests, module boundaries, and equivalent algorithms. They may reorder independent Work Orders and split an implementation internally into smaller commits.
+
+They may not change authority boundaries, security invariants, immutable-version semantics, evidence requirements, credential isolation, dependency prerequisites, or the distinction between product scheduling and engineering orchestration without an Architecture Change Request.
+
+## Frontier rule
+
+Only one governing implementation sequence exists, but the Tech Lead computes the **eligible frontier** dynamically from the live dependency graph and repository state. The roadmap is not a permission to execute a Work Order whose dependencies are unmerged.
 
 ## Definition of MVP complete
 
 The MVP is complete only when a user can create a workflow using Demonstrate, Instruct, or Hybrid; approve a semantic immutable version; run it through the product execution planner/orchestrator; execute it through browser and at least one structured connector path; use at least two external AI harnesses; pause for human takeover; resume; collect lineage-rich evidence/telemetry; handle governed recovery; and successfully reuse the workflow for software-development dogfood without hidden product-specific workflow code.
+
+## Execution authority
+
+The durable operating procedure is `spec/development-state/TECH-LEAD-DISPATCH-PROTOCOL.md`. Controlled implementation flexibility is defined in `spec/development-state/IMPLEMENTATION-FLEX-RULES.md`. The complete wave/gate program is in `spec/development-state/EXECUTION-PROGRAM-V1.1.md`.
