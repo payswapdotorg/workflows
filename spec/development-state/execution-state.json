@@ -1,9 +1,9 @@
 {
   "version":"1.0",
   "activeExecutions":[],
-  "completedWorkOrders":[],
+  "completedWorkOrders":["WO-001","WO-002","WO-003","WO-004"],
   "failedExecutions":[],
   "humanTakeovers":[],
-  "lastReconciledMainSha":"37dbc01a9b29f5fc12d522a29f7d31846c165b63",
-  "notes":"Navigation only. Live Git, Work Orders, CI, and evidence override stale projections."
+  "lastReconciledMainSha":"5fbfde307152a97785ea614be2ce8b32251f0e77",
+  "notes":"Navigation only. Live Git, Work Orders, CI, and evidence override stale projections. WO-005 is the current implementation frontier."
 }
