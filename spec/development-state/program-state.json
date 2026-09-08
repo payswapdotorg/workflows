@@ -12,11 +12,19 @@
     "spec/architecture/ARCHITECTURE-LOCK-V1.1.md",
     "spec/architecture/AGENT-ORCHESTRATION.md"
   ],
+  "authoritativeExecutionProgram": [
+    "spec/implementation-roadmap.md",
+    "spec/development-state/EXECUTION-PROGRAM-V1.1.md",
+    "spec/development-state/TECH-LEAD-DISPATCH-PROTOCOL.md",
+    "spec/development-state/IMPLEMENTATION-FLEX-RULES.md",
+    "spec/work-orders/IMPLEMENTATION-CATALOG-V1.1.md"
+  ],
   "completedBootstrapWorkOrders": ["WO-001", "WO-002", "WO-003", "WO-004", "WO-005"],
   "currentFrontier": ["WO-006"],
   "nextUnlockedAfter": {"WO-006": ["WO-007", "WO-008", "WO-009", "WO-010"]},
   "completionAuthority": "merged implementation plus acceptance/evidence reconciliation",
   "nextMilestone": "governed-platform-foundation",
-  "lastReconciledMainSha": "a0cb2d6b313529522c2b49dda055b7eb4e58b857",
-  "reconciliationRequiredAfterArchitectureMerge": false
+  "lastReconciledMainSha": "483e2d354d5bc1600ab935ccc016bb2b846d3e3f",
+  "reconciliationRequiredAfterArchitectureMerge": true,
+  "reconciliationNote": "This branch contains the complete implementation-program artifacts but is not main. After the governing PR is merged, recompute the frontier and update this state against the then-current main SHA before dispatching implementation work."
 }
