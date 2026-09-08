@@ -1,0 +1,19 @@
+{
+  "version": "1.1",
+  "authority": "Workflows controls workflow semantics; Codex controls runtime execution mechanics",
+  "nodes": [
+    {"id":"CX-001","title":"Cross-repository contract audit","dependsOn":["WO-009","WO-010A"],"repo":"workflows+codex","parallelGroup":"CROSS_REPO_AUDIT"},
+    {"id":"CX-002","title":"Codex read-only Workflow Host","dependsOn":["CX-001"],"repo":"codex","parallelGroup":"CODEX_HOST"},
+    {"id":"CX-003","title":"Launch attach control bridge","dependsOn":["CX-002","WO-013","WO-014"],"repo":"workflows+codex","parallelGroup":"CROSS_REPO_RUNTIME"},
+    {"id":"CX-004","title":"Capability resource execution binding","dependsOn":["CX-002","WO-017A"],"repo":"workflows+codex","parallelGroup":"CROSS_REPO_RUNTIME"},
+    {"id":"CX-005","title":"Cross-client UX event evidence bridge","dependsOn":["CX-003","WO-032","WO-035"],"repo":"workflows+codex","parallelGroup":"CROSS_REPO_UX"},
+    {"id":"CX-006","title":"Cross-repository conformance and dogfood","dependsOn":["CX-003","CX-004","CX-005","WO-036","WO-037","WO-038"],"repo":"workflows+codex","parallelGroup":"CROSS_REPO_RELEASE"}
+  ],
+  "rules": [
+    "Never implement a CX node from an invented Workflows API.",
+    "CX-001 must record exact main/base SHAs and classify every required contract IMPLEMENTED, SPECIFIED_ONLY, PARTIAL, UNKNOWN, or BLOCKED.",
+    "Codex may cache Workflows metadata for latency but cached state is never authoritative.",
+    "Codex must not own WorkflowVersion, WorkflowInstance, legal workflow transitions, or product execution scheduling.",
+    "A cross-repository gate passes only when both repositories provide exact-head evidence for the relevant contract and implementation."
+  ]
+}
