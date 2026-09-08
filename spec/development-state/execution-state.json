@@ -5,6 +5,6 @@
   "completedWorkOrders":["WO-001","WO-002","WO-003","WO-004","WO-005"],
   "failedExecutions":[],
   "humanTakeovers":[],
-  "lastReconciledMainSha":"c53583fe19315831a12c0eaadfe66d21deda3d08",
-  "notes":"Navigation only. Live Git, Work Orders, CI, and evidence override stale projections. Current implementation frontier is WO-006. The last reconciliation commit is included in main; recompute the frontier from the dependency graph and live Git facts before every dispatch."
+  "lastReconciledMainSha":"483e2d354d5bc1600ab935ccc016bb2b846d3e3f",
+  "notes":"Navigation state only. Live Git, Work Orders, CI, and evidence override projections. The governing implementation-program artifacts on this branch are not yet main; after merge, recompute the frontier from the dependency graph and live Git facts before every dispatch. The initial implementation frontier is WO-006."
 }
