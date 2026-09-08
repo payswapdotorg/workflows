@@ -1,19 +1,22 @@
 {
   "program": "WORKFLOWS-MVP",
-  "architectureVersion": "1.0",
-  "status": "BOOTSTRAP_GOVERNED",
-  "goal": "Build a browser-first AI-native workflow operating system that learns reusable workflows through Demonstrate, Instruct, and Hybrid teaching and orchestrates AI/human execution.",
+  "architectureVersion": "1.1",
+  "status": "READY_FOR_IMPLEMENTATION",
+  "goal": "Build a browser-first AI-native workflow operating system that learns reusable workflows through Demonstrate, Instruct, and Hybrid teaching and orchestrates AI/human execution across browser, tools, APIs, and future modalities.",
   "firstDogfoodWorkflow": "software-development",
   "normalConcurrentImplementationAgents": 3,
   "authoritativeArchitecture": [
     "spec/architecture/ARCHITECTURE.md",
+    "spec/architecture/ARCHITECTURE-V1.1.md",
     "spec/architecture/ARCHITECTURE-LOCK.md",
+    "spec/architecture/ARCHITECTURE-LOCK-V1.1.md",
     "spec/architecture/AGENT-ORCHESTRATION.md"
   ],
-  "completedBootstrapWorkOrders": ["WO-001", "WO-002", "WO-003", "WO-004"],
-  "currentFrontier": ["WO-005"],
-  "nextUnlockedAfter": {"WO-005": ["WO-006"]},
+  "completedBootstrapWorkOrders": ["WO-001", "WO-002", "WO-003", "WO-004", "WO-005"],
+  "currentFrontier": ["WO-006"],
+  "nextUnlockedAfter": {"WO-006": ["WO-007", "WO-008", "WO-009", "WO-010"]},
   "completionAuthority": "merged implementation plus acceptance/evidence reconciliation",
   "nextMilestone": "governed-platform-foundation",
-  "lastReconciledMainSha": "211da2eb16f8eab97adbb38255ae92ca9a963bbe"
+  "lastKnownMainSha": "47e080160e827ea907816bd88536ef4b04c4ca38",
+  "reconciliationRequiredAfterArchitectureMerge": true
 }

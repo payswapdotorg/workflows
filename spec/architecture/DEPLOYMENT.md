@@ -1,4 +1,4 @@
-# MVP Deployment Architecture
+# MVP Deployment Architecture — V1.1
 
 ## Principles
 
@@ -7,6 +7,7 @@
 3. Do not place persistent Chromium in serverless request handlers.
 4. The user's browser is the default MVP execution environment.
 5. Cloud browsers are adapters for unattended/remote execution, not semantic authorities.
+6. External connectors such as Composio are integration adapters; they do not own workflow state.
 
 ## Target topology
 
@@ -20,23 +21,23 @@ Cloudflare DNS/TLS/WAF
                 ▼
           Workflows API
                 │
-       ┌────────┼────────┐
-       ▼        ▼        ▼
-     Neon    Upstash     R2
-   PostgreSQL  Redis   artifacts
-       │        │        │
-       └────────┼────────┘
+       ┌────────┼──────────────┐
+       ▼        ▼              ▼
+     Neon    Upstash           R2
+   PostgreSQL  Redis        artifacts
+       │        │              │
+       └────────┼──────────────┘
                 ▼
           Orchestrator
-                │
-       ┌────────┼──────────┐
-       ▼        ▼          ▼
-    Browser   API        Human
-       │
-   ┌───┼────────────┐
-   ▼   ▼            ▼
-Chrome ChatGPT     Claude/Z.ai/etc.
-extn.    web          web
+          /     |       \
+         /      |        \
+     Agent   Connector   Human
+      |          |          |
+   Harness    Composio     Human
+      |          |          |
+ Browser/API  GitHub/etc.  approvals
+      |
+ Chrome extension / managed Chromium
 ```
 
 ## Provider roles
@@ -47,14 +48,21 @@ extn.    web          web
 - Cloudflare R2: screenshots, recordings, traces and other durable artifacts.
 - Cloudflare Workers/Durable Objects: optional realtime coordination.
 - GitHub Actions: CI, conformance, scheduled tests and deployment automation.
-- Apify: optional research/extraction jobs, not the primary browser runtime.
+- Composio: first ToolConnector integration for external app/tool execution and connected-account authentication. Workflows stores governed resource/binding references, not Composio credential values.
+- Apify: optional research/extraction jobs and connector-backed execution, not the primary browser runtime.
 - Browserbase or equivalent: optional remote browser backend.
 - Railway or equivalent: optional long-lived worker/control processes where serverless is unsuitable.
 
+## Composio operating rule
+
+Use Composio for external integration capabilities such as GitHub, Slack, research, operations, and similar app workflows. Keep Workflows' own PostgreSQL/R2/control-plane operations on first-party infrastructure; do not make semantic workflow state dependent on an LLM invoking Composio to administer the system that governs that LLM.
+
+Composio sessions should be least-privilege and resource/account scoped. Prefer runtime tool discovery over broad preload. Multiple connected accounts should use explicit or deterministic governed selection for auditable workflows.
+
 ## MVP cost strategy
 
-Default browser execution is local through the browser extension. This avoids paying for a cloud browser for every interaction and preserves existing user authentication. A remote-browser backend is added only for workflows explicitly configured for unattended execution.
+Default browser execution is local through the browser extension. This avoids paying for a cloud browser for every interaction and preserves existing user authentication. A remote-browser backend is added only for workflows explicitly configured for unattended execution. Composio is used where structured app capabilities reduce brittle UI automation; browser execution remains the universal fallback and first teaching surface.
 
 ## Production evolution
 
-As usage grows, browser workers can migrate to dedicated remote Chromium infrastructure without changing workflow semantics because `BrowserRuntime` is an adapter behind the execution contract.
+As usage grows, browser workers can migrate to dedicated remote Chromium infrastructure and additional ToolConnector implementations can be added without changing workflow semantics because both are adapters behind stable execution/capability contracts.

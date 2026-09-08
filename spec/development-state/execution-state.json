@@ -1,9 +1,10 @@
 {
-  "version":"1.0",
+  "version":"1.1",
+  "architectureVersion":"1.1",
   "activeExecutions":[],
-  "completedWorkOrders":["WO-001","WO-002","WO-003","WO-004"],
+  "completedWorkOrders":["WO-001","WO-002","WO-003","WO-004","WO-005"],
   "failedExecutions":[],
   "humanTakeovers":[],
-  "lastReconciledMainSha":"5fbfde307152a97785ea614be2ce8b32251f0e77",
-  "notes":"Navigation only. Live Git, Work Orders, CI, and evidence override stale projections. WO-005 is the current implementation frontier."
+  "lastKnownMainSha":"47e080160e827ea907816bd88536ef4b04c4ca38",
+  "notes":"Navigation only. Live Git, Work Orders, CI, and evidence override stale projections. V1.1 architecture amendment is pending merge; after merge, reconcile lastKnownMainSha and remove the pending flag in program-state.json. Current implementation frontier is WO-006."
 }
