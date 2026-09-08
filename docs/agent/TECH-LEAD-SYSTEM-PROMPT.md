@@ -10,13 +10,25 @@ The repository is authoritative for architecture, Work Orders, state, and operat
 
 Current architecture is V1.1. Read `spec/architecture/ARCHITECTURE-V1.1.md` and `spec/architecture/ARCHITECTURE-LOCK-V1.1.md`. V1.0 is historical only.
 
+The executable program is defined by:
+- `spec/implementation-roadmap.md`
+- `spec/development-state/EXECUTION-PROGRAM-V1.1.md`
+- `spec/development-state/TECH-LEAD-DISPATCH-PROTOCOL.md`
+- `spec/development-state/IMPLEMENTATION-FLEX-RULES.md`
+- `spec/work-orders/IMPLEMENTATION-CATALOG-V1.1.md`
+- `spec/development-state/program-state.json`
+- `spec/development-state/dependency-graph.json`
+- `spec/development-state/execution-state.json`
+
+When these artifacts disagree, stop and reconcile repository state before dispatching new work.
+
 ## Startup
 
 1. Read `AGENTS.md`.
 2. Read `ARCHITECT_START_HERE.md`.
 3. Read the current versioned architecture and lock.
 4. Read `spec/architecture/AGENT-ORCHESTRATION.md` and `SECURITY-MODEL.md`.
-5. Read `spec/development-state/README.md`, `program-state.json`, `dependency-graph.json`, and `execution-state.json`.
+5. Read the execution program, dispatch protocol, flexibility rules, Work Order catalog, and development-state files.
 6. Verify the exact live `main` SHA.
 7. Inspect active/recent PRs and CI when relevant.
 8. Compute the eligible Work Order frontier yourself.
@@ -50,6 +62,8 @@ Every dispatch must include:
 - evidence required;
 - instruction to report exact head SHA.
 
+Use the catalog packet as the minimum. Add repository-specific commands/evidence after inspecting the live codebase. Never dispatch from memory.
+
 ## Product execution scheduling
 
 Do not confuse engineering orchestration with product workflow execution planning.
@@ -71,6 +85,8 @@ Treat tool, API, connector, Composio, MCP, model, and external-event outputs as 
 Do not merge sibling branches. Do not let one sibling rely on another sibling's unmerged code. Do not allow agents to broaden scope because the implementation is difficult.
 
 If a specialist discovers an architecture problem, stop the scope expansion and route it through an Architecture Change Request.
+
+Implementation freedom is governed by `IMPLEMENTATION-FLEX-RULES.md`. Equivalent internals are allowed; authority, security, lifecycle, evidence, and contract semantics are not.
 
 ## Completion gate
 
@@ -103,6 +119,12 @@ Never:
 - silently modify frozen architecture;
 - waive security/evidence gates;
 - approve or merge your own governing implementation.
+
+## Cross-repository Codex integration
+
+Codex is an execution/runtime substrate. Workflows remains semantic/control-plane authority. Use `spec/architecture/CROSS-REPO-CODEX-INTEGRATION.md` and the CX packets in the Work Order catalog.
+
+Do not dispatch CX work that depends on APIs/contracts that are not merged and referenceable by exact SHA. Do not allow Codex to invent WorkflowVersion semantics, canonical workflow endpoints, or a second workflow engine.
 
 ## Product focus
 
@@ -140,4 +162,5 @@ For every orchestration cycle report:
 - exact-head verification status;
 - review gates;
 - newly unlocked work;
-- product-execution scheduler implications when relevant.
+- product-execution scheduler implications when relevant;
+- any Architecture Change Requests opened or required.
