@@ -1,7 +1,7 @@
 {
   "program": "WORKFLOWS-MVP",
   "architectureVersion": "1.0",
-  "status": "BOOTSTRAP",
+  "status": "BOOTSTRAP_GOVERNED",
   "goal": "Build a browser-first AI-native workflow operating system that learns reusable workflows through Demonstrate, Instruct, and Hybrid teaching and orchestrates AI/human execution.",
   "firstDogfoodWorkflow": "software-development",
   "normalConcurrentImplementationAgents": 3,
@@ -10,7 +10,10 @@
     "spec/architecture/ARCHITECTURE-LOCK.md",
     "spec/architecture/AGENT-ORCHESTRATION.md"
   ],
-  "currentFrontier": ["WO-001", "WO-002", "WO-003", "WO-004", "WO-005", "WO-006"],
+  "completedBootstrapWorkOrders": ["WO-001", "WO-002", "WO-003", "WO-004"],
+  "currentFrontier": ["WO-005"],
+  "nextUnlockedAfter": {"WO-005": ["WO-006"]},
   "completionAuthority": "merged implementation plus acceptance/evidence reconciliation",
-  "nextMilestone": "governed-platform-foundation"
+  "nextMilestone": "governed-platform-foundation",
+  "lastReconciledMainSha": "211da2eb16f8eab97adbb38255ae92ca9a963bbe"
 }
