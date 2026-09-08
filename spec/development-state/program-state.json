@@ -17,6 +17,6 @@
   "nextUnlockedAfter": {"WO-006": ["WO-007", "WO-008", "WO-009", "WO-010"]},
   "completionAuthority": "merged implementation plus acceptance/evidence reconciliation",
   "nextMilestone": "governed-platform-foundation",
-  "lastKnownMainSha": "47e080160e827ea907816bd88536ef4b04c4ca38",
-  "reconciliationRequiredAfterArchitectureMerge": true
+  "lastReconciledMainSha": "17d1fdf6a9994ec68504ce648ac6a2ccd151a3bd",
+  "reconciliationRequiredAfterArchitectureMerge": false
 }
