@@ -24,4 +24,4 @@ A Work Order is considered complete only when its implementation is merged and i
 
 ## Parallelism rule
 
-At most three implementation Work Orders may be actively executed concurrently under the normal Tech Lead policy. Waiting, review, or human-takeover executions do not justify starting a fourth implementation sibling if it would exceed the declared implementation concurrency.
+At most three implementation Work Orders may be actively executed concurrently under the normal Tech Lead engineering policy. This does not constrain product workflow concurrency, graph-level parallel branches, or external execution capacity; those are governed by the product WorkflowVersion, resource policy, authorization, and execution planner.
